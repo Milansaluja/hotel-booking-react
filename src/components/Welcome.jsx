@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
+
 
 const Welcome = () => {
   const navigate = useNavigate();
@@ -18,11 +20,20 @@ const Welcome = () => {
   }, []);
 
   return (
+    <>
+    <Navbar/>
     <div className="text-center mt-10">
       <h1 className="text-3xl font-bold text-gray-900">
         Welcome to the page, {userName}! 🎉
       </h1>
     </div>
+
+
+
+
+
+
+    </>
   );
 };
 

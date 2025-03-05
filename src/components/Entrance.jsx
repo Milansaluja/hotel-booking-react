@@ -1,10 +1,13 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import Navbar from "./Navbar";
 
 const Entrance = () => {
   return (
     <div className=" w-full min-h-screen bg-[#ededed]">
+      <Navbar />
+
       {/* Navigation Buttons */}
       <div className=" pt-10 px-6 gap-10 flex text-lg">
         <NavLink
