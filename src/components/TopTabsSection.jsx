@@ -42,7 +42,7 @@ const TopTabsSection = () => {
             }`}
             role="tabpanel"
           >
-            {Comp&& <Comp />}
+            {activeTab===id && <Comp />}
           </div>
         ))}
       </div>

@@ -4,6 +4,14 @@ import Form from "./Form";
 
 const Table = () => {
   const [Register, setRegister] = useState(false);
+  // fetching data from local storage.............................
+  let data = JSON.parse(localStorage.getItem("bookingData")) || [];
+  // console.log(data);
+
+function handleDelete(){
+  
+}
+
   return (
     <>
       {/*  2nd tabs buttons....................... */}
@@ -39,31 +47,31 @@ const Table = () => {
           </thead>
 
           <tbody className="text-center">
-            <tr className="border-b border-gray-200 dark:border-gray-700">
-              {/* data comes from object user submit data */}
-              <td className="px-6 py-4">Silver</td>
-              <td className="px-6 py-4">Laptop</td>
-              <td className="px-6 py-4">$2999</td>
-              <td className="px-6 py-4">$2999</td>
-              <td className="px-6 py-4">$2999</td>
-              <td className="px-6 py-4">$2999</td>
-              <td className="px-6 py-4">$2999</td>
-              <td className="px-6 py-4">$2999</td>
-              <td className="px-6 py-4">$2999</td>
-              <td className="px-6 py-4">$2999</td>
-              <td className="px-6 py-4">$2999</td>
-              <td className="px-6 py-4">$2999</td>
-            </tr>
+            {data &&
+              data.map((item, index) => (
+                <tr key={index} className="border-b border-gray-200 dark:border-gray-700">
+                  {/* data comes from object user submit data */}
+                  <td className="px-6 py-4">{index+1}</td>
+                  <td className="px-6 py-4">{item.fullname}</td>
+                  <td className="px-6 py-4">{item.location}</td>
+                  <td className="px-6 py-4">{item.roomNo}</td>
+                  <td className="px-6 py-4">{item.totalPeople}</td>
+                  <td className="px-6 py-4">{item.checkInDate}</td>
+                  <td className="px-6 py-4">{item.checkOutDate}</td>
+                  <td className="px-6 py-4">{item.price}</td>
+                  <td className="px-6 py-4">{item.mobileNumber}</td>
+                  <td className="px-6 py-4">{item.textarea}</td>
+                  <td className="px-6 py-4 cursor-pointer">Edit</td>
+                  <td onClick={handleDelete} className="px-6 py-4 cursor-pointer">Delete</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
 
-
       {/*  calling the components wrt 2-tabs data */}
 
       {Register && <Form Register={Register} setRegister={setRegister} />}
-
-
     </>
   );
 };

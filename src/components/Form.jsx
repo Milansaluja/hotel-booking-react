@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import { siteData } from "./sitedata";
 import Input from "./Input";
 import Textarea from "./Textarea";
+import swal from "sweetalert";
 
 const Form = ({ setRegister }) => {
-  const [bookingStorage, setBookingStorage] = useState([]);
-
   const [Formdata, setFormData] = useState(
     siteData?.registrationData?.formFields?.reduce((acc, item) => {
       acc[item.name] = item.value || "";
       return acc;
     }, {}) // data is an object now. {name:"value",name:"value".....etc}
+  );
+
+  const [bookingStorage, setBookingStorage] = useState(
+    JSON.parse(localStorage.getItem("bookingData")) || []
   );
 
   function handleInputChange(e) {
@@ -20,20 +23,31 @@ const Form = ({ setRegister }) => {
       [name]: value,
     }));
   }
-  // console.log(Formdata);
 
+  // console.log(bookingStorage);
   function handleSubmit(e) {
     e.preventDefault();
-    console.log("Form data submitted", Formdata);
+    // console.log(bookingStorage); // first its empty....
+    const newBookingStorage = [...bookingStorage, Formdata];
+    setBookingStorage(newBookingStorage);
+    localStorage.setItem("bookingData", JSON.stringify(newBookingStorage));
+    console.log("Updated bookingStorage:", newBookingStorage);
 
-    // setBookingStorage((prevStorage) => {
-    //   const newStorage = [...prevStorage, Formdata];
-    //   localStorage.setItem("bookingData", JSON.stringify(newStorage));
-    //   return newStorage;
-    // });
-    // console.log(bookingStorage);
+    // Clear form inputs
+    setFormData(
+      siteData?.registrationData?.formFields?.reduce((acc, item) => {
+        acc[item.name] = ""; // Reset all values to empty string
+        return acc;
+      }, {})
+    );
+
+    // Close the form
+    setRegister(false);
+
+    swal("Good job!", "Registration Successful!", "success");
+
+    console.log("Form submitted and closed");
   }
-
   return (
     <>
       <div className="form bg-[#323030be]  w-full h-full top-0 left-0 grid justify-center items-center absolute z-10">
