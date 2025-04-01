@@ -1,4 +1,5 @@
 import Table from "./Table";
+import SignUp from "./Signup";
 export const siteData = {
   inputData: {
     title: "Register",
@@ -81,17 +82,17 @@ export const siteData = {
       {
         id: "InHouse",
         content: "Dashboard tab's associated content.",
-        Comp: Table,
+        Comp: SignUp,
       },
       {
         id: "Archieve",
         content: "Settings tab's associated content.",
-        // Comp: Table,
+        Comp: Table,
       },
       {
         id: "Cashier",
         content: "Contacts tab's associated content.",
-        // Comp: Table,
+        Comp: Table,
       },
     ],
   },

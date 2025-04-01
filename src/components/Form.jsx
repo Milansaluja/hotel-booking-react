@@ -4,16 +4,12 @@ import Input from "./Input";
 import Textarea from "./Textarea";
 import swal from "sweetalert";
 
-const Form = ({ setRegister }) => {
+const Form = ({ setRegister, setBookings }) => {
   const [Formdata, setFormData] = useState(
     siteData?.registrationData?.formFields?.reduce((acc, item) => {
       acc[item.name] = item.value || "";
       return acc;
     }, {}) // data is an object now. {name:"value",name:"value".....etc}
-  );
-
-  const [bookingStorage, setBookingStorage] = useState(
-    JSON.parse(localStorage.getItem("bookingData")) || []
   );
 
   function handleInputChange(e) {
@@ -27,11 +23,12 @@ const Form = ({ setRegister }) => {
   // console.log(bookingStorage);
   function handleSubmit(e) {
     e.preventDefault();
-    // console.log(bookingStorage); // first its empty....
-    const newBookingStorage = [...bookingStorage, Formdata];
-    setBookingStorage(newBookingStorage);
-    localStorage.setItem("bookingData", JSON.stringify(newBookingStorage));
-    console.log("Updated bookingStorage:", newBookingStorage);
+    const newBookingStorage =
+      JSON.parse(localStorage.getItem("bookingData")) || [];
+    const formedData = [...newBookingStorage, Formdata];
+    setBookings(formedData); // directly displaying the message on table component from here.
+    localStorage.setItem("bookingData", JSON.stringify(formedData)); // now update databse browser storage.
+    console.log("Updated bookingStorage:", formedData);
 
     // Clear form inputs
     setFormData(

@@ -5,12 +5,21 @@ import Form from "./Form";
 const Table = () => {
   const [Register, setRegister] = useState(false);
   // fetching data from local storage.............................
-  let data = JSON.parse(localStorage.getItem("bookingData")) || [];
+  const [bookings, setBookings] = useState(
+    JSON.parse(localStorage.getItem("bookingData")) || []
+  );
+  // console.log("",bookingData);
+
   // console.log(data);
 
-function handleDelete(){
-  
-}
+  function handleDelete(id) {
+    const newData = bookings.filter(
+      (_,index) =>
+        index !== id // true ayega har jage bas 1 ko chodkar wahi extract ho jaygea.
+    );
+    setBookings(newData); // render the page again.
+    localStorage.setItem("bookingData", JSON.stringify(newData));
+  }
 
   return (
     <>
@@ -35,7 +44,7 @@ function handleDelete(){
 
       {/* table............. */}
       <div className="w-[95%] mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <table className="w-full text-sm text-left rtl:text-right ">
           <thead className="text-[14px] text-gray-700 up dark:text-gray-400">
             <tr className="text-black text-center">
               {siteData?.tableData?.dataArray?.map((item, index) => (
@@ -47,11 +56,14 @@ function handleDelete(){
           </thead>
 
           <tbody className="text-center">
-            {data &&
-              data.map((item, index) => (
-                <tr key={index} className="border-b border-gray-200 dark:border-gray-700">
+            {bookings &&
+              bookings.map((item, index) => (
+                <tr
+                  key={index}
+                  className="border-b border-gray-200 dark:border-gray-700"
+                >
                   {/* data comes from object user submit data */}
-                  <td className="px-6 py-4">{index+1}</td>
+                  <td className="px-6 py-4">{index + 1}</td>
                   <td className="px-6 py-4">{item.fullname}</td>
                   <td className="px-6 py-4">{item.location}</td>
                   <td className="px-6 py-4">{item.roomNo}</td>
@@ -62,7 +74,12 @@ function handleDelete(){
                   <td className="px-6 py-4">{item.mobileNumber}</td>
                   <td className="px-6 py-4">{item.textarea}</td>
                   <td className="px-6 py-4 cursor-pointer">Edit</td>
-                  <td onClick={handleDelete} className="px-6 py-4 cursor-pointer">Delete</td>
+                  <td
+                    onClick={() => handleDelete(index)}
+                    className="px-6 py-4 cursor-pointer"
+                  >
+                    Delete
+                  </td>
                 </tr>
               ))}
           </tbody>
@@ -71,7 +88,7 @@ function handleDelete(){
 
       {/*  calling the components wrt 2-tabs data */}
 
-      {Register && <Form Register={Register} setRegister={setRegister} />}
+      {Register && <Form setRegister={setRegister} setBookings={setBookings} />}
     </>
   );
 };
