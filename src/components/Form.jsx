@@ -4,13 +4,23 @@ import Input from "./Input";
 import Textarea from "./Textarea";
 import swal from "sweetalert";
 
-const Form = ({ setRegister, setBookings }) => {
+const Form = ({
+  setRegister,
+  bookings,
+  setBookings,
+  editIndex,
+  setEditIndex,
+}) => {
   const [Formdata, setFormData] = useState(
-    siteData?.registrationData?.formFields?.reduce((acc, item) => {
-      acc[item.name] = item.value || "";
-      return acc;
-    }, {}) // data is an object now. {name:"value",name:"value".....etc}
+    editIndex !== null
+      ? bookings[editIndex]
+      : siteData?.registrationData?.formFields?.reduce((acc, item) => {
+          acc[item.name] = item.value || "";
+          return acc;
+        }, {}) // data is an object now. {name:"value",name:"value".....etc}
   );
+  console.log("formData wrt condition:",Formdata);
+  
 
   function handleInputChange(e) {
     let { name, value } = e.target;
@@ -23,12 +33,20 @@ const Form = ({ setRegister, setBookings }) => {
   // console.log(bookingStorage);
   function handleSubmit(e) {
     e.preventDefault();
-    const newBookingStorage =
-      JSON.parse(localStorage.getItem("bookingData")) || [];
-    const formedData = [...newBookingStorage, Formdata];
-    setBookings(formedData); // directly displaying the message on table component from here.
-    localStorage.setItem("bookingData", JSON.stringify(formedData)); // now update databse browser storage.
-    console.log("Updated bookingStorage:", formedData);
+    const newBookingStorage =  JSON.parse(localStorage.getItem("bookingData")) || [];
+    // console.log("fresh datan",newBookingStorage);
+    
+    let updateBookings;
+    if (editIndex !== null) {
+      updateBookings = [...newBookingStorage]; // made new array 
+      updateBookings[editIndex] = Formdata;
+    } else {
+      updateBookings = [...newBookingStorage, Formdata];
+    }
+
+    setBookings(updateBookings);  // directly displaying the message on table component from here.
+    localStorage.setItem("bookingData", JSON.stringify(updateBookings));  // now update databse browser storage.
+    // // console.log("Updated bookingStorage:", formedData);
 
     // Clear form inputs
     setFormData(
@@ -37,14 +55,18 @@ const Form = ({ setRegister, setBookings }) => {
         return acc;
       }, {})
     );
-
+    setEditIndex(null);
     // Close the form
     setRegister(false);
-
-    swal("Good job!", "Registration Successful!", "success");
-
+   
+    swal(
+      "Good job!", 
+      editIndex !== null ? "Booking Updated!" : "Registration Successful!", 
+      "success"
+    );
     console.log("Form submitted and closed");
   }
+
   return (
     <>
       <div className="form bg-[#323030be]  w-full h-full top-0 left-0 grid justify-center items-center absolute z-10">
