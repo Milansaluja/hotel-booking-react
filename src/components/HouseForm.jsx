@@ -4,23 +4,23 @@ import Input from "./Input";
 import Textarea from "./Textarea";
 import swal from "sweetalert";
 
-const Form = ({
+const HouseForm = ({
   setRegister,
-  bookings,
-  setBookings,
+  houseBookings,
+  setHouseBookings,
   editIndex,
   setEditIndex,
   storeKey
 }) => {
   const [Formdata, setFormData] = useState(
     editIndex !== null
-      ? bookings[editIndex]
+      ? houseBookings[editIndex]
       : siteData?.registrationData?.formFields?.reduce((acc, item) => {
           acc[item.name] = item.value || "";
           return acc;
         }, {}) // data is an object now. {name:"value",name:"value".....etc}
   );
-  console.log("formData wrt condition:",Formdata);
+  console.log("In house formData wrt condition:",Formdata);
   
 
   function handleInputChange(e) {
@@ -34,7 +34,7 @@ const Form = ({
   // console.log(bookingStorage);
   function handleSubmit(e) {
     e.preventDefault();
-    const newBookingStorage =  JSON.parse(localStorage.getItem(`${storeKey}_bookingData`)) || []; // gere we get the fresh data instead what is removed from parent tabel. 
+    const newBookingStorage =  JSON.parse(localStorage.getItem(`${storeKey}_InHbookingData`)) || [];
     // console.log("fresh datan",newBookingStorage);
     
     let updateBookings;
@@ -45,8 +45,8 @@ const Form = ({
       updateBookings = [...newBookingStorage, Formdata]; //  newBookingStorage array at first will be empty & nothing will come ,then only obj will transfer from here to booking through setBookings(updatingBookings) which is an array that we done below.
     }
 
-    setBookings(updateBookings);  // directly displaying the message on table component from here.
-    localStorage.setItem(`${storeKey}_bookingData`, JSON.stringify(updateBookings));  // now update databse browser storage.
+    setHouseBookings(updateBookings);  // directly displaying the message on table component from here.
+    localStorage.setItem(`${storeKey}_InHbookingData`, JSON.stringify(updateBookings));  // now update databse browser storage.
     // // console.log("Updated bookingStorage:", formedData);
 
     // Clear form inputs
@@ -141,4 +141,4 @@ const Form = ({
   );
 };
 
-export default Form;
+export default HouseForm;

@@ -3,10 +3,17 @@ import { siteData } from "./sitedata";
 import Form from "./Form";
 
 const Table = () => {
+  //  getting data of logged in user profile....
+  const storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
+  // console.log("userProfile",storedUser);
+  const storeKey= storedUser.email.split("@")[0];
+  // console.log(storeKey);
+  
+
   const [Register, setRegister] = useState(false);
   // fetching data from local storage.............................
   const [bookings, setBookings] = useState(
-    JSON.parse(localStorage.getItem("bookingData")) || []
+    JSON.parse(localStorage.getItem(`${storeKey}_bookingData`)) || []
   );
   // console.log("ui data",bookings);
 
@@ -17,7 +24,7 @@ const Table = () => {
       (_, index) => index !== id // true ayega har jage bas 1 ko chodkar wahi extract ho jaygea.
     );
     setBookings(newData); // render the page again.
-    localStorage.setItem("bookingData", JSON.stringify(newData));
+    localStorage.setItem(`${storeKey}_bookingData`, JSON.stringify(newData));
   }
 
   function handleEdit(index) {
@@ -95,7 +102,7 @@ const Table = () => {
 
       {/*  calling the components wrt 2-tabs data */}
 
-      {Register && <Form setRegister={setRegister} bookings={bookings} setBookings={setBookings} editIndex={editIndex} setEditIndex={setEditIndex} />}
+      {Register && <Form setRegister={setRegister} bookings={bookings} setBookings={setBookings} editIndex={editIndex} setEditIndex={setEditIndex} storeKey={storeKey} />}
     </>
   );
 };

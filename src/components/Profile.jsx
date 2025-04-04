@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
-import Table from "./Table";
 import TopTabsSection from "./TopTabsSection"
 
 const Profile = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
+
 
   useEffect(() => {
     // Fetch user data from localStorage

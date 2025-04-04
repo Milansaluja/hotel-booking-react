@@ -1,5 +1,5 @@
 import Table from "./Table";
-import SignUp from "./Signup";
+import InhouseBooking from "./InhouseBooking";
 export const siteData = {
   inputData: {
     title: "Register",
@@ -82,7 +82,7 @@ export const siteData = {
       {
         id: "InHouse",
         content: "Dashboard tab's associated content.",
-        Comp: SignUp,
+        Comp: InhouseBooking,
       },
       {
         id: "Archieve",
