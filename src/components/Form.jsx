@@ -28,6 +28,7 @@ const Form = ({
     setFormData((prev) => ({ // object
       ...prev,
       [name]: value,
+      createdAt: new Date()
     }));
   }
 
