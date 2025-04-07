@@ -17,7 +17,6 @@ const Table = () => {
   // console.log("ui data",bookings);
 
   const [editIndex, setEditIndex] = useState(null);
-  const [archieveIndex, setArchieveIndex] = useState(null);
 
   function handleDelete(id) {
     const newData = bookings.filter(
@@ -32,33 +31,6 @@ const Table = () => {
     setRegister(true);
   }
 
- function handleArchieve(index){
- let data=bookings[index]
- console.log("checkingindex_1",data); // click wali index aayegi
- let newdata=bookings.splice(index,1) // jisko delete karwana hai fir usim ko inhouse paunchana hai.
- console.log("newData_2",newdata);
-
-console.log("data_3",bookings);
-
-setArchieveIndex(index)
-  }
-
-console.log("2nd",archieveIndex);
-
-  // custom date format.............
-  const formatDate = (data, isTime) => {
-    const date = new Date(data);
-    const yy = date.getFullYear();
-    let mm = date.getMonth() + 1;
-    let dd = date.getDate();
-    const time = date.toLocaleTimeString();
-    dd = dd < 10 ? "0" + dd : dd;
-    mm = mm < 10 ? "0" + mm : mm;
-    return `${dd}-${mm}-${yy} / ${isTime ? time : ""}`;
-  };
-
-  console.log("date-check", bookings);
-
   return (
     <>
       {/*  2nd tabs buttons....................... */}
@@ -67,7 +39,7 @@ console.log("2nd",archieveIndex);
           className="relative bg-blue-500 px-5 py-2 rounded-xl text-white"
           onClick={() => {
             setRegister((prev) => !prev);
-          }}       
+          }}
         >
           <button>Register</button>
         </div>
@@ -81,7 +53,7 @@ console.log("2nd",archieveIndex);
       </div>
 
       {/* table............. */}
-      <div className="w-[99%] mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="w-[95%] mx-auto relative overflow-x-auto shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right ">
           <thead className="text-[14px] text-gray-700 dark:text-gray-400">
             <tr className="text-white bg-black">
@@ -108,29 +80,17 @@ console.log("2nd",archieveIndex);
                   <td className="px-4 py-4">{item.price}</td>
                   <td className="px-4 py-4">{item.mobileNumber}</td>
                   <td className="px-4 py-4">{item.textarea}</td>
-                  <td className="px-4 py-4">
-                    {formatDate(item.createdAt, true)}
+                  <td
+                    onClick={() => handleEdit(index)}
+                    className="px-4 py-4 cursor-pointer"
+                  >
+                    Edit
                   </td>
-
-                  <td>
-                    <td
-                      onClick={() => handleEdit(index)}
-                      className="px-4 py-4 cursor-pointer"
-                    >
-                      Edit
-                    </td>
-                    <td
-                      onClick={() => handleArchieve(index)}
-                      className="px-4 py-4 cursor-pointer"
-                    >
-                      Archieve
-                    </td>
-                    <td
-                      onClick={() => handleDelete(index)}
-                      className="px-4 py-4 cursor-pointer"
-                    >
-                      Delete
-                    </td>
+                  <td
+                    onClick={() => handleDelete(index)}
+                    className="px-4 py-4 cursor-pointer"
+                  >
+                    Delete
                   </td>
                 </tr>
               ))}

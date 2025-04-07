@@ -1,7 +1,7 @@
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Entrance from "./components/Entrance";
-import Welcome from "./components/Welcome";
+import Profile from "./components/Profile";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
         { index: true, element: <Signup /> }, // Default to Signup on
       ],
     },
-    {path:"/welcome",element:<Welcome/>},
+    {path:"/profile",element:<Profile/>},
   ]);
   return (
     <>
