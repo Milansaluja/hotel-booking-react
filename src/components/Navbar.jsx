@@ -9,7 +9,6 @@ const Navbar = () => {
 
   function handleLogout() {
     setIsDisabled(true);
-    
 // settimeout for delay and satisfication to user.................
     setTimeout(() => {
       localStorage.removeItem("loggedInUser");
@@ -37,7 +36,7 @@ const Navbar = () => {
       </div>
 
       <div className="mx-5">
-        {location.pathname === "/welcome" ? (
+        {location.pathname === "/profile" ? (
           <button
             onClick={handleLogout}
             className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
