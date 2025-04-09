@@ -32,18 +32,30 @@ const Table = () => {
     setRegister(true);
   }
 
- function handleArchieve(index){
- let data=bookings[index]
- console.log("checkingindex_1",data); // click wali index aayegi
- let newdata=bookings.splice(index,1) // jisko delete karwana hai fir usim ko inhouse paunchana hai.
- console.log("newData_2",newdata);
+  function handleInhouse(index) {
+    // 1. Get the item to archive
+    const itemToArchive = bookings[index];
+    // 2. Remove from current bookings
+    const updatedBookings = bookings.filter((_, i) => i !== index);
+    // 3. Get existing in-house bookings from localStorage
+    const existingInHouse =
+      JSON.parse(localStorage.getItem(`${storeKey}_InHbookingData`)) || [];
+    // 4. Update both in localStorage only
+    localStorage.setItem(
+      `${storeKey}_bookingData`,
+      JSON.stringify(updatedBookings)
+    );
+    localStorage.setItem(
+      `${storeKey}_InHbookingData`,
+      JSON.stringify([...existingInHouse, itemToArchive])
+    );
+    // 5. Update local state to trigger re-render
+    setBookings(updatedBookings);
 
-console.log("data_3",bookings);
-
-setArchieveIndex(index)
+    swal("Archived!", "Booking moved to in-house", "success");
   }
 
-console.log("2nd",archieveIndex);
+  console.log("2nd", archieveIndex);
 
   // custom date format.............
   const formatDate = (data, isTime) => {
@@ -67,7 +79,7 @@ console.log("2nd",archieveIndex);
           className="relative bg-blue-500 px-5 py-2 rounded-xl text-white"
           onClick={() => {
             setRegister((prev) => !prev);
-          }}       
+          }}
         >
           <button>Register</button>
         </div>
@@ -105,7 +117,7 @@ console.log("2nd",archieveIndex);
                   <td className="px-4 py-4">{item.totalPeople}</td>
                   <td className="px-4 py-4">{item.checkInDate}</td>
                   <td className="px-4 py-4">{item.checkOutDate}</td>
-                  <td className="px-4 py-4">{item.price}</td>
+                  <td className="px-4 py-4">₹{item.price}</td>
                   <td className="px-4 py-4">{item.mobileNumber}</td>
                   <td className="px-4 py-4">{item.textarea}</td>
                   <td className="px-4 py-4">
@@ -115,19 +127,19 @@ console.log("2nd",archieveIndex);
                   <td>
                     <td
                       onClick={() => handleEdit(index)}
-                      className="px-4 py-4 cursor-pointer"
+                      className="px-4 py-4 cursor-pointer text-blue-600 hover:text-blue-800"
                     >
                       Edit
                     </td>
                     <td
-                      onClick={() => handleArchieve(index)}
-                      className="px-4 py-4 cursor-pointer"
+                      onClick={() => handleInhouse(index)}
+                      className="px-4 py-4 cursor-pointer text-green-600 hover:text-green-800"
                     >
-                      Archieve
+                      Inhouse
                     </td>
                     <td
                       onClick={() => handleDelete(index)}
-                      className="px-4 py-4 cursor-pointer"
+                      className="px-4 py-4 cursor-pointer text-red-600 hover:text-red-800"
                     >
                       Delete
                     </td>

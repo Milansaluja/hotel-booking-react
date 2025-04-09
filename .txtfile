@@ -56,3 +56,8 @@ Which Version Should You Use?
 Scenario	Syntax
 Single operation (e.g., just spreading an array)	prev => [...prev, Formdata] (cleaner) .......no need of return.
 Multiple operations (e.g., console.log + state update)	prev => { ...prev ; console.log(" ") return ...; } (requires {} and return) which need more than one values
+
+
+<!-- Window methods ............ -->
+dispatchEvent = Signal bhejna ("Bhai, data update kar diya!")
+addEventListener = Signal sunna ("Haan bhai, update kar leta hu!")

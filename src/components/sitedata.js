@@ -1,5 +1,6 @@
 import Table from "./Table";
 import InhouseBooking from "./InhouseBooking";
+import Archive from "./Archive";
 export const siteData = {
   inputData: {
     title: "Register",
@@ -87,7 +88,7 @@ export const siteData = {
       {
         id: "Archieve",
         content: "Settings tab's associated content.",
-        Comp: Table,
+        Comp: Archive,
       },
       {
         id: "Cashier",
