@@ -25,7 +25,7 @@ const Profile = () => {
       <Navbar />
       <div className="text-right mt-8 mx-4">
         <h1 className="text-xl font-bold text-gray-900 pb-10 ">
-        Currently active agent - <i>  {userName} 🎉 </i>
+        Currently active agent - <i>  {userName}  </i>👨‍✈️
         </h1>
       </div>
 <TopTabsSection/>

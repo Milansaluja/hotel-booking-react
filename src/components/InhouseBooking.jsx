@@ -4,11 +4,11 @@ import HouseForm from "./HouseForm";
 import swal from "sweetalert";
 
 const InhouseBooking = () => {
-  const storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
-  const storeKey = storedUser.email.split("@")[0];
-  const [Register, setRegister] = useState(false);
-  const [houseBookings, setHouseBookings] = useState([]);
-  const [editIndex, setEditIndex] = useState(null);
+  const storedUser = JSON.parse(localStorage.getItem("loggedInUser")); // for getting user name from email.
+  const storeKey = storedUser.email.split("@")[0]; // unique key.
+  const [Register, setRegister] = useState(false); // for open form and close.
+  const [houseBookings, setHouseBookings] = useState([]); // for storing main data.
+  const [editIndex, setEditIndex] = useState(null); // for editing object.
 
   // Load initial data and setup storage listener
   useEffect(() => {
@@ -51,7 +51,7 @@ const InhouseBooking = () => {
        JSON.parse(localStorage.getItem(`${storeKey}_ArchiveData`)) || [];
      // 4. Update both in localStorage only
      localStorage.setItem(
-       `${storeKey}_HouseBookings`,
+       `${storeKey}_InHbookingData`,
        JSON.stringify(updatedBookings)
      );
      // for Archive data.........
@@ -69,7 +69,7 @@ const InhouseBooking = () => {
   const updateBookings = (newBookings) => {
     setHouseBookings(newBookings);
     localStorage.setItem(
-      `${storeKey}_HouseBookings`,
+      `${storeKey}_InHbookingData`,
       JSON.stringify(newBookings)
     );
     // Trigger storage event for other tabs/components
@@ -108,7 +108,7 @@ const InhouseBooking = () => {
           <button>Print</button>
         </div>
         <div className="bg-blue-500 px-5 py-2 rounded-xl text-white">
-          <button>Total Booking</button>
+          <button>Total InHouse</button>
         </div>
       </div>
 

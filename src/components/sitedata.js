@@ -1,6 +1,8 @@
 import Table from "./Table";
 import InhouseBooking from "./InhouseBooking";
 import Archive from "./Archive";
+import Cashier from "./Cashier";
+
 export const siteData = {
   inputData: {
     title: "Register",
@@ -93,7 +95,7 @@ export const siteData = {
       {
         id: "Cashier",
         content: "Contacts tab's associated content.",
-        Comp: Table,
+        Comp: Cashier,
       },
     ],
   },
@@ -113,6 +115,13 @@ export const siteData = {
       { points: "Created At" },
       { points: "Action" },
     ],
+    cashierDataArray:[
+      { points: " Sr" },
+      { points: "Room No" },
+      { points: "Amount" },
+      { points: "Cashier" },
+      { points: "Date/Time" },
+    ]
   },
 
   registrationData: {
